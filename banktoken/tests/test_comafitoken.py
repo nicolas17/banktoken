@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 import base64
 
-import comafitoken
+from .. import comafitoken
 
 TEST_PAYLOAD = b'jNnbU15eXl5dMsxWZ5alkd9nFoWo1Eb1t0Izj4nh5PKVMGI0hOQLBQMv8k2t'
 TEST_SEED = b'KGCQPVRVHCQgTLOeaSLGFTYQC'
@@ -19,7 +19,7 @@ class TestBankToken(unittest.TestCase):
             content=b'callback(["%s"])' % TEST_PAYLOAD
         )
 
-    @patch('comafitoken.sess.get')
+    @patch('banktoken.comafitoken.sess.get')
     def test_fetch(self, mock_get):
         '''Happy path fetching data'''
         mock_get.return_value = self.mock_response
@@ -38,7 +38,7 @@ class TestBankToken(unittest.TestCase):
 
         self.assertEqual(seed, TEST_SEED)
 
-    @patch('comafitoken.sess.get')
+    @patch('banktoken.comafitoken.sess.get')
     def test_all(self, mock_get):
         '''Happy path end to end'''
 

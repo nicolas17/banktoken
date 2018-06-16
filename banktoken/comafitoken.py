@@ -9,7 +9,7 @@ import base64
 
 import requests
 
-import jscrypto
+from . import jscrypto
 
 sess = requests.session()
 

@@ -7,7 +7,7 @@ import unittest
 import base64
 import binascii
 
-import jscrypto
+from .. import jscrypto
 
 class TestJSCrypto(unittest.TestCase):
     def test_key_derivation(self):
