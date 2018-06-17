@@ -24,7 +24,7 @@ class TestBankToken(unittest.TestCase):
         '''Happy path fetching data'''
         mock_get.return_value = self.mock_response
 
-        payload = comafitoken._fetch_encrypted_payload('99999999')
+        payload = comafitoken.fetch_encrypted_payload('99999999')
 
         mock_get.assert_called_once()
         self.assertEqual(mock_get.call_args[1]['params']['cupon'], '99999999')
@@ -34,7 +34,7 @@ class TestBankToken(unittest.TestCase):
 
     def test_decrypt(self):
         '''Happy path decrypting data'''
-        seed = comafitoken._decrypt_seed(base64.b64decode(TEST_PAYLOAD), '999999')
+        seed = comafitoken.decrypt_seed(base64.b64decode(TEST_PAYLOAD), '999999')
 
         self.assertEqual(seed, TEST_SEED)
 

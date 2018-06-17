@@ -18,7 +18,7 @@ activation_code = activation_code.strip()
 
 print("Contactando servidor...", end='')
 sys.stdout.flush()
-encrypted_blob = comafitoken._fetch_encrypted_payload(activation_code)
+encrypted_blob = comafitoken.fetch_encrypted_payload(activation_code)
 print()
 
 did_decrypt = False
@@ -29,7 +29,7 @@ while not did_decrypt:
         continue
 
     try:
-        seed = comafitoken._decrypt_seed(encrypted_blob, passcode)
+        seed = comafitoken.decrypt_seed(encrypted_blob, passcode)
         did_decrypt = True
     except RuntimeError as e:
         print("Clave incorrecta\n")

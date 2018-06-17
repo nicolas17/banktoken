@@ -13,7 +13,7 @@ from . import jscrypto
 
 sess = requests.session()
 
-def _fetch_encrypted_payload(activation_code):
+def fetch_encrypted_payload(activation_code):
     r = sess.get(
         "https://tokenv.banelcoservices.com.ar/vuserver/activation.php",
         params={
@@ -45,7 +45,7 @@ def _fetch_encrypted_payload(activation_code):
     else:
         raise RuntimeError("Got unexpected content type")
 
-def _decrypt_seed(payload, passcode):
+def decrypt_seed(payload, passcode):
     decrypted_payload = jscrypto.aesCtrDecrypt(payload, passcode, 256)
 
     m = re.fullmatch(rb'([0-9]+) ([0-9a-zA-Z=]+) ([01]?)', decrypted_payload)
@@ -59,6 +59,6 @@ def _decrypt_seed(payload, passcode):
 
 def activate(activation_code, passcode):
 
-    encrypted_blob = _fetch_encrypted_payload(activation_code)
-    return _decrypt_seed(encrypted_blob, passcode)
+    encrypted_blob = fetch_encrypted_payload(activation_code)
+    return decrypt_seed(encrypted_blob, passcode)
 
