@@ -1,5 +1,5 @@
 Este script permite activar Comafi Token en otras aplicaciones de 2FA,
-como Google Authenticator o Authy.
+como Google Authenticator.
 Ideal para el que ya tiene una app con varias cuentas de 2FA,
 y no quiere tener que usar app otra solo para el token del Comafi.
 
@@ -41,5 +41,7 @@ editar la cuenta recién agregada, y cambiar el Period a 40 segundos.
 
 **Lastpass Authenticator**: Funciona con código QR. Creo que no soporta URL.
 Para ingreso manual: ingresar la clave Base32, y cambiar el período a 40 segundos en Advanced Settings.
+
+**Authy**: *No funciona.*
 
 <!-- (TODO: agregar instrucciones de cómo probar si una app es compatible) -->
