@@ -8,17 +8,15 @@ import sys
 import re
 import base64
 
-from banktoken import comafitoken
+from banktoken import banelcotoken
 import pyqrcode
-
-comafitoken.sess.verify = False
 
 activation_code = input("Ingresá el código de asociación que figura en el ticket (8 caracteres): ")
 activation_code = activation_code.strip()
 
 print("Contactando servidor...", end='')
 sys.stdout.flush()
-encrypted_blob = comafitoken.fetch_encrypted_payload(activation_code)
+encrypted_blob = banelcotoken.fetch_encrypted_payload(activation_code)
 print()
 
 did_decrypt = False
@@ -29,7 +27,7 @@ while not did_decrypt:
         continue
 
     try:
-        seed = comafitoken.decrypt_seed(encrypted_blob, passcode)
+        seed = banelcotoken.decrypt_seed(encrypted_blob, passcode)
         did_decrypt = True
     except RuntimeError as e:
         print("Clave incorrecta\n")
