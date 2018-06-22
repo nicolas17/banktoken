@@ -14,8 +14,9 @@ from . import jscrypto
 sess = requests.session()
 
 BANK_CONFIG = {
-    'comafi': {'param': None, 'name': 'Comafi Token'},
-    'santander': {'param': 'RIOP', 'name': 'Santander Río'}
+    'comafi':    {'param': None,   'name': 'Comafi Token'},
+    'santander': {'param': 'RIOP', 'name': 'Santander Río'},
+    'icbc':      {'param': 'BSTN', 'name': 'ICBC'}
 }
 
 def bank_ids():
