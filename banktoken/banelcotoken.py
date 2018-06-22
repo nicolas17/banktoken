@@ -13,14 +13,29 @@ from . import jscrypto
 
 sess = requests.session()
 
-def fetch_encrypted_payload(activation_code):
+BANK_CONFIG = {
+    'comafi': {'param': None, 'name': 'Comafi Token'},
+    'santander': {'param': 'RIOP', 'name': 'Santander Río'}
+}
+
+def bank_ids():
+    return BANK_CONFIG.keys()
+
+def name_from_id(bank_id):
+    return BANK_CONFIG[bank_id]['name']
+
+def fetch_encrypted_payload(bank_id, activation_code):
+    params={
+        'cupon': activation_code,
+        'callback': 'callback',
+        '_': str(int(time.time() * 1000))
+    }
+    if BANK_CONFIG[bank_id]['param'] is not None:
+        params['bank'] = BANK_CONFIG[bank_id]['param']
+
     r = sess.get(
         "https://tokenv.banelcoservices.com.ar/vuserver/activation.php",
-        params={
-            'cupon': activation_code,
-            'callback': 'callback',
-            '_': str(int(time.time() * 1000))
-        }
+        params=params
     )
 
     if r.status_code != 200:
@@ -57,8 +72,8 @@ def decrypt_seed(payload, passcode):
     # TODO verify CRC
     return seed
 
-def activate(activation_code, passcode):
+def activate(bank_id, activation_code, passcode):
 
-    encrypted_blob = fetch_encrypted_payload(activation_code)
+    encrypted_blob = fetch_encrypted_payload(bank_id, activation_code)
     return decrypt_seed(encrypted_blob, passcode)
 

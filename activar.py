@@ -7,16 +7,27 @@
 import sys
 import re
 import base64
+import urllib.parse
 
 from banktoken import banelcotoken
 import pyqrcode
+
+bank_list = ', '.join(sorted(banelcotoken.bank_ids()))
+if len(sys.argv) != 2:
+    print("Uso: %s <banco>\n\ndonde <banco> puede ser: %s." % (sys.argv[0], bank_list), file=sys.stderr)
+    sys.exit(1)
+
+bank_id = sys.argv[1]
+if bank_id not in banelcotoken.bank_ids():
+    print("Banco '%s' no soportado; las opciones son: %s" % (bank_id, bank_list))
+    sys.exit(1)
 
 activation_code = input("Ingresá el código de asociación que figura en el ticket (8 caracteres): ")
 activation_code = activation_code.strip()
 
 print("Contactando servidor...", end='')
 sys.stdout.flush()
-encrypted_blob = banelcotoken.fetch_encrypted_payload(activation_code)
+encrypted_blob = banelcotoken.fetch_encrypted_payload(bank_id, activation_code)
 print()
 
 did_decrypt = False
@@ -37,7 +48,7 @@ print()
 print("Activación correcta")
 
 seed_b32 = base64.b32encode(seed)
-url = 'otpauth://totp/Comafi%%20Token?secret=%s&issuer=Comafi&period=40' % seed_b32.decode('latin1')
+url = 'otpauth://totp/%s?secret=%s&period=40' % (urllib.parse.quote(banelcotoken.name_from_id(bank_id)), urllib.parse.quote(seed_b32.decode('latin1')))
 
 qr = pyqrcode.create(url, error='L')
 print(qr.terminal())

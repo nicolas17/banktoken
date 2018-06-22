@@ -24,11 +24,26 @@ class TestBankToken(unittest.TestCase):
         '''Happy path fetching data'''
         mock_get.return_value = self.mock_response
 
-        payload = banelcotoken.fetch_encrypted_payload('99999999')
+        payload = banelcotoken.fetch_encrypted_payload('comafi', '99999999')
 
         mock_get.assert_called_once()
         self.assertEqual(mock_get.call_args[1]['params']['cupon'], '99999999')
         self.assertEqual(mock_get.call_args[1]['params']['callback'], 'callback')
+        self.assertNotIn('bank', mock_get.call_args[1]['params'])
+
+        self.assertEqual(payload, base64.b64decode(TEST_PAYLOAD))
+
+    @patch('banktoken.banelcotoken.sess.get')
+    def test_fetch_santander(self, mock_get):
+        '''Fetching data from another bank'''
+        mock_get.return_value = self.mock_response
+
+        payload = banelcotoken.fetch_encrypted_payload('santander', '99999999')
+
+        mock_get.assert_called_once()
+        self.assertEqual(mock_get.call_args[1]['params']['cupon'], '99999999')
+        self.assertEqual(mock_get.call_args[1]['params']['callback'], 'callback')
+        self.assertEqual(mock_get.call_args[1]['params']['bank'], 'RIOP')
 
         self.assertEqual(payload, base64.b64decode(TEST_PAYLOAD))
 
@@ -44,11 +59,12 @@ class TestBankToken(unittest.TestCase):
 
         mock_get.return_value = self.mock_response
 
-        seed = banelcotoken.activate('99999999', '999999')
+        seed = banelcotoken.activate('comafi', '99999999', '999999')
 
         mock_get.assert_called_once()
         self.assertEqual(mock_get.call_args[1]['params']['cupon'], '99999999')
         self.assertEqual(mock_get.call_args[1]['params']['callback'], 'callback')
+        self.assertNotIn('bank', mock_get.call_args[1]['params'])
 
         self.assertEqual(seed, TEST_SEED)
 
