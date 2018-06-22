@@ -13,8 +13,9 @@ Instrucciones
 El cajero imprime un ticket con un código de asociación.
 **Si ya habías activado el token con la aplicación oficial del banco,
 dejará de funcionar al activarlo de nuevo.**
-2. En la computadora, ejecutar en una consola `python3 activar.py banco`;
-donde `banco` debe ser `comafi` o `santander`.
+2. En la computadora, ejecutar `activar.py` en una consola,
+pasando el nombre del banco (`comafi` o `santander`) como parámetro.
+Por ejemplo, `python3 activar.py comafi`.
 3. Ingresar el código de asociación.
 **El código de asociación se puede usar una sola vez,
 a partir de acá si algo sale mal no se puede volver a intentar,
