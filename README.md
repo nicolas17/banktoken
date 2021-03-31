@@ -3,7 +3,7 @@ en otras aplicaciones de 2FA, como Google Authenticator.
 Ideal para el que ya tiene una app con varias cuentas de 2FA,
 y no quiere tener que usar app otra solo para el token del banco.
 
-Actualmente los bancos soportados son **Comafi**, **ICBC**, y **Santander Río**.
+Actualmente los bancos soportados son **Comafi**, **BBVA**, **ICBC**, y **Santander Río**.
 
 Instrucciones
 =============
@@ -14,7 +14,7 @@ El cajero imprime un ticket con un código de asociación.
 **Si ya habías activado el token con la aplicación oficial del banco,
 dejará de funcionar al activarlo de nuevo.**
 2. En la computadora, ejecutar `activar.py` en una consola,
-pasando el nombre del banco (`comafi`, `icbc` o `santander`) como parámetro.
+pasando el nombre del banco (`comafi`, `bbva`, `icbc` o `santander`) como parámetro.
 Por ejemplo, `python3 activar.py comafi`.
 3. Ingresar el código de asociación.
 **El código de asociación se puede usar una sola vez,

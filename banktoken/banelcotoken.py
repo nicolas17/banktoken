@@ -16,7 +16,8 @@ sess = requests.session()
 BANK_CONFIG = {
     'comafi':    {'param': None,   'name': 'Comafi Token'},
     'santander': {'param': 'RIOP', 'name': 'Santander Río'},
-    'icbc':      {'param': 'BSTN', 'name': 'ICBC'}
+    'icbc':      {'param': 'BSTN', 'name': 'ICBC'},
+    'bbva':      {'param': 'FNCS', 'name': 'BBVA'}
 }
 
 def bank_ids():
