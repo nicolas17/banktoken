@@ -46,6 +46,8 @@ editar la cuenta recién agregada, y cambiar el Period a 40 segundos.
 **Lastpass Authenticator**: Funciona con código QR. Creo que no soporta URL.
 Para ingreso manual: ingresar la clave Base32, y cambiar el período a 40 segundos en Advanced Settings.
 
+**KeePassXC**: Funciona ingresando manualmente la clave Base32 en Use Custom Settings. Seleccionar SHA-1, 40 segundos y 6 dígitos.
+
 **Authy**: *No funciona.*
 
 <!-- (TODO: agregar instrucciones de cómo probar si una app es compatible) -->
