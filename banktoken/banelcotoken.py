@@ -44,6 +44,9 @@ def fetch_encrypted_payload(bank_id, activation_code):
         raise RuntimeError("status_code not 200") # FIXME better exception
 
     content_type = r.headers.get('Content-Type', '')
+    # if there are any parameters like "text/html;charset=utf-8" we want to remove them
+    content_type = content_type.partition(';')[0].strip()
+
     if content_type == 'application/javascript':
         m = re.fullmatch(rb'callback\(\["(.*)"\]\)', r.content)
         if m is None:
@@ -60,7 +63,7 @@ def fetch_encrypted_payload(bank_id, activation_code):
         else:
             raise RuntimeError("Got unknown error")
     else:
-        raise RuntimeError("Got unexpected content type")
+        raise RuntimeError("Got unexpected content type: %r" % content_type)
 
 def decrypt_seed(payload, passcode):
     decrypted_payload = jscrypto.aesCtrDecrypt(payload, passcode, 256)
