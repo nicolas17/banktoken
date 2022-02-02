@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Nicolás Alvarez <nicolas.alvarez@gmail.com>
+# Copyright (c) 2022 Nicolás Alvarez <nicolas.alvarez@gmail.com>
 # Licensed under the GNU General Public License version 3 or any later version.
 # See LICENSE.txt for details.
 
@@ -17,7 +17,8 @@ BANK_CONFIG = {
     'comafi':    {'param': None,   'name': 'Comafi Token'},
     'santander': {'param': 'RIOP', 'name': 'Santander Río'},
     'icbc':      {'param': 'BSTN', 'name': 'ICBC'},
-    'bbva':      {'param': 'FNCS', 'name': 'BBVA'}
+    'bbva':      {'param': 'FNCS', 'name': 'BBVA'},
+    'macro':     {'param': 'BMBS', 'name': 'Banco Macro'},
 }
 
 def bank_ids():
